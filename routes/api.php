@@ -14,6 +14,15 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+// Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+//     return $request->user();
+// });
+
+Route::get('/test', function () {
+    return response()->json([
+        'message' => 'Hello World!',
+    ], 200);
 });
+
+
+Route::apiResource('bookings', App\Http\Controllers\Api\LabBookingController::class);
