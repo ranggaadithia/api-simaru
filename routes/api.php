@@ -2,6 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\RoomController;
 
 /*
 |--------------------------------------------------------------------------
@@ -23,6 +24,14 @@ Route::get('/test', function () {
         'message' => 'Hello World!',
     ], 200);
 });
+
+
+
+Route::get('labs', [RoomController::class, 'index']);
+Route::post('labs', [RoomController::class, 'store']);
+Route::get('labs/{id}', [RoomController::class, 'show']);
+Route::put('labs/{id}', [RoomController::class, 'update']);
+Route::delete('labs/{id}', [RoomController::class, 'destroy']);
 
 
 Route::apiResource('bookings', App\Http\Controllers\Api\LabBookingController::class);
