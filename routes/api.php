@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RoomController;
+use App\Http\Controllers\AuthController;
 
 /*
 |--------------------------------------------------------------------------
@@ -35,3 +36,8 @@ Route::delete('labs/{id}', [RoomController::class, 'destroy']);
 
 
 Route::apiResource('bookings', App\Http\Controllers\Api\LabBookingController::class);
+
+
+
+Route::post('/login', [AuthController::class, 'login']);
+Route::post('/register', [AuthController::class, 'register']);
