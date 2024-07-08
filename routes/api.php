@@ -1,7 +1,9 @@
 <?php
 
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Api\NewPasswordController;
 
 /*
 |--------------------------------------------------------------------------
@@ -24,5 +26,13 @@ Route::get('/test', function () {
     ], 200);
 });
 
+Route::get('/users', function () {
+    return response()->json([
+        'users' => User::all(),
+    ], 200);
+});
+
 
 Route::apiResource('bookings', App\Http\Controllers\Api\LabBookingController::class);
+Route::post('forgot-password', [NewPasswordController::class, 'forgotPassword']);
+Route::post('reset-password', [NewPasswordController::class, 'reset']);
