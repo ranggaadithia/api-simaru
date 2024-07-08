@@ -21,12 +21,11 @@ use App\Http\Controllers\AuthController;
 // Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 //     return $request->user();
 // });
+Route::post('/login', [AuthController::class, 'login']);
+Route::post('/register', [AuthController::class, 'register']);
 
-Route::get('/test', function () {
-    return response()->json([
-        'message' => 'Hello World!',
-    ], 200);
-});
+Route::post('forgot-password', [NewPasswordController::class, 'forgotPassword']);
+Route::post('reset-password', [NewPasswordController::class, 'reset']);
 
 Route::get('/users', function () {
     return response()->json([
@@ -35,19 +34,11 @@ Route::get('/users', function () {
 });
 
 
-
-Route::get('labs', [RoomController::class, 'index']);
-Route::post('labs', [RoomController::class, 'store']);
-Route::get('labs/{id}', [RoomController::class, 'show']);
-Route::put('labs/{id}', [RoomController::class, 'update']);
-Route::delete('labs/{id}', [RoomController::class, 'destroy']);
-
-
-Route::apiResource('bookings', App\Http\Controllers\Api\LabBookingController::class);
-Route::post('forgot-password', [NewPasswordController::class, 'forgotPassword']);
-Route::post('reset-password', [NewPasswordController::class, 'reset']);
-
-
-
-Route::post('/login', [AuthController::class, 'login']);
-Route::post('/register', [AuthController::class, 'register']);
+Route::middleware('auth:sanctum')->group(function () {
+    Route::get('labs', [RoomController::class, 'index']);
+    Route::post('labs', [RoomController::class, 'store']);
+    Route::get('labs/{id}', [RoomController::class, 'show']);
+    Route::put('labs/{id}', [RoomController::class, 'update']);
+    Route::delete('labs/{id}', [RoomController::class, 'destroy']);
+    Route::apiResource('bookings', App\Http\Controllers\Api\LabBookingController::class);
+});
