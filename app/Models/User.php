@@ -7,6 +7,7 @@ use App\Models\Status;
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Notifications\ResetPasswordNotification;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable
@@ -43,5 +44,13 @@ class User extends Authenticatable
     public function labs()
     {
         return $this->belongsToMany(Lab::class, 'labs_booking', 'user_id', 'lab_id')->withPivot('booking_date', 'start_time', 'end_time', 'reason_to_booking')->withTimestamps();
+    }
+
+    public function sendPasswordResetNotification($token)
+    {
+
+        $url = 'http://localhost:8080/reset-password?token=' . $token;
+
+        $this->notify(new ResetPasswordNotification($url));
     }
 }

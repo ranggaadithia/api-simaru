@@ -1,7 +1,9 @@
 <?php
 
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Api\NewPasswordController;
 use App\Http\Controllers\RoomController;
 use App\Http\Controllers\AuthController;
 
@@ -26,6 +28,12 @@ Route::get('/test', function () {
     ], 200);
 });
 
+Route::get('/users', function () {
+    return response()->json([
+        'users' => User::all(),
+    ], 200);
+});
+
 
 
 Route::get('labs', [RoomController::class, 'index']);
@@ -36,6 +44,8 @@ Route::delete('labs/{id}', [RoomController::class, 'destroy']);
 
 
 Route::apiResource('bookings', App\Http\Controllers\Api\LabBookingController::class);
+Route::post('forgot-password', [NewPasswordController::class, 'forgotPassword']);
+Route::post('reset-password', [NewPasswordController::class, 'reset']);
 
 
 
